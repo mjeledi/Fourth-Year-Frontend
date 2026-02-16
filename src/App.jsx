@@ -1,10 +1,9 @@
-import { useState } from 'react'
-import './App.css'
 import { createBrowserRouter } from 'react-router'
 import { RouterProvider } from 'react-router-dom'
 import Layout from './Layout'
 import AdminLogin from './Login'
 import CreateAccount from './CreateAccount'
+import LoginPage from './LoginPage'
 
 function App() {
 
@@ -12,7 +11,7 @@ function App() {
     path: '',
     element: <Layout/>,
     children: [
-      { path: '', element: <AdminLogin/> },
+      { path: '', element: <LoginPage/> },
       { path: '/createaccount', element: <CreateAccount/> },
     ]
   }])
