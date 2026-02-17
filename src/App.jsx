@@ -1,13 +1,12 @@
 import { createBrowserRouter } from 'react-router'
 import { RouterProvider } from 'react-router-dom'
 import Layout from './Layout'
-import AdminLogin from './Login'
-import CreateAccount from './CreateAccount'
 import LoginPage from './LoginPage'
 import AdminDashboard from './AdminDashboard'
 import FacialRecognitionScanner from './FacialRecognitionScanner'
 import AttendanceReports from './AttendanceReports'
 import LecturerDashboard from './LecturerDashboard'
+import StudentDashboard from './StudentDashboard'
 
 function App() {
 
@@ -16,11 +15,11 @@ function App() {
     element: <Layout/>,
     children: [
       { path: '', element: <LoginPage/> },
-      { path: '/createaccount', element: <CreateAccount/> },
       { path: '/dashboard', element: <AdminDashboard/>},
       { path: '/recognition', element: <FacialRecognitionScanner/>},
       { path: '/attendance', element: <AttendanceReports/>},
-      { path: '/lecturer' , element: <LecturerDashboard/>}
+      { path: '/lecturer' , element: <LecturerDashboard/>},
+      { path: '/student' , element: <StudentDashboard/>}
     ]
   }])
 

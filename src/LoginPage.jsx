@@ -1,7 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Eye, EyeOff, UserCircle, Lock, School } from 'lucide-react';
+import { useNavigate } from 'react-router';
 
 const LoginPage = () => {
+  
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -24,6 +28,7 @@ const LoginPage = () => {
     e.preventDefault();
     // Authentication logic would go here
     console.log('Login attempt:', formData);
+    navigate('/dashboard')
   };
 
   const handleChange = (e) => {
@@ -148,7 +153,7 @@ const LoginPage = () => {
             <p className="text-gray-600">Sign in to access your dashboard</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={(e) => handleSubmit(e)} className="space-y-6">
             {/* User Type Selection */}
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-3">
