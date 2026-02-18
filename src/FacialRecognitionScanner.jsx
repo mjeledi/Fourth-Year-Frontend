@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Camera, Scan, CheckCircle, AlertTriangle, Smile, RefreshCw, Volume2, VolumeX, User, MapPin } from 'lucide-react';
+import { aiMessages, classInfo, livenessChecks } from './constants';
 
 const FacialRecognitionScanner = () => {
+
   const [scanningState, setScanningState] = useState('idle'); // idle, scanning, liveness, success, failed
   const [livenessCheck, setLivenessCheck] = useState('');
   const [countdown, setCountdown] = useState(null);
@@ -9,30 +11,61 @@ const FacialRecognitionScanner = () => {
   const [detectionProgress, setDetectionProgress] = useState(0);
   const videoRef = useRef(null);
 
-  const classInfo = {
-    name: 'Data Structures & Algorithms',
-    code: 'CSC 301',
-    time: '8:00 AM - 10:00 AM',
-    venue: 'Lab 3, SCI Building',
-    lecturer: 'Dr. Jane Mutua'
+  const captureImage = () => {
+    const video = videoRef.current;
+
+    if (!video) {
+      console.error("Video ref not ready");
+      return null;
+    }
+
+    if (video.readyState !== 4) {
+      console.error("Video not ready yet");
+      return null;
+    }
+
+    const canvas = document.createElement("canvas");
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(video, 0, 0);
+
+    return canvas.toDataURL("image/jpeg");
   };
 
-  const livenessChecks = [
-    'Please smile 😊',
-    'Please turn your head to the left',
-    'Please turn your head to the right',
-    'Please blink twice',
-    'Please nod your head'
-  ];
+  useEffect(() => {
+    let stream;
 
-  const aiMessages = {
-    idle: "Position your face in the frame. Make sure you're in good lighting.",
-    scanning: 'Scanning your face... Please hold still.',
-    liveness: 'Checking for liveness...',
-    success: 'Attendance marked successfully! You may leave.',
-    failed: 'Face not recognized. Please try again or contact support.'
-  };
+    const startCamera = async () => {
+      try {
+        stream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            width: 640,
+            height: 480,
+            facingMode: "user"
+          }
+        });
 
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+        }
+      } catch (err) {
+        console.error("Camera error:", err);
+      }
+    };
+
+    startCamera();
+
+    return () => {
+      if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+      }
+    };
+  }, []);
+
+
+ 
   useEffect(() => {
     if (scanningState === 'scanning') {
       // Simulate face detection progress
@@ -71,11 +104,33 @@ const FacialRecognitionScanner = () => {
     }
   };
 
-  const startScanning = () => {
-    setScanningState('scanning');
+  // const startScanning = () => {
+  //   setScanningState('scanning');
+  //   setDetectionProgress(0);
+  //   speakMessage('Scanning your face. Please hold still.');
+  // };
+
+  const startScanning = async () => {
+    const video = videoRef.current;
+
+    if (!video || video.readyState !== 4) {
+      alert("Camera not ready yet. Please wait.");
+      return;
+    }
+
+    setScanningState("scanning");
     setDetectionProgress(0);
-    speakMessage('Scanning your face. Please hold still.');
+
+    speakMessage("Scanning your face. Please hold still.");
+
+    const image = captureImage();
+
+    if (!image) return;
+
+    console.log("Captured image:", image.substring(0, 50));
   };
+
+
 
   const resetScanner = () => {
     setScanningState('idle');
@@ -208,8 +263,21 @@ const FacialRecognitionScanner = () => {
               <div className="face-frame-inner relative">
                 <div className="aspect-[4/3] bg-gradient-to-br from-slate-800 to-slate-900 flex items-center justify-center relative overflow-hidden">
                   {/* Camera feed placeholder */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-blue-900/20"></div>
-                  
+                  {/* Real Camera Feed */}
+                  <video
+                    ref={videoRef}
+                    autoPlay
+                    playsInline
+                    muted
+                    className="absolute inset-0 w-full h-full object-cover"
+                    onLoadedMetadata={() => {
+                      console.log("Camera ready");
+                    }}
+                  />
+
+                  {/* Overlay gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-purple-900/20 to-blue-900/20 pointer-events-none"></div>
+
                   {/* Face detection overlay */}
                   <div className="relative z-10 w-64 h-80 border-2 border-dashed border-purple-400 rounded-3xl flex items-center justify-center">
                     {scanningState === 'idle' && (
