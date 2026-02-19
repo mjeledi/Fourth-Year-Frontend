@@ -9,7 +9,7 @@ const LoginPage = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    userType: 'lecturer',
+    userType: 'student',
     school: ''
   });
 
@@ -161,7 +161,7 @@ const LoginPage = () => {
                 I am a
               </label>
               <div className="grid grid-cols-3 gap-3">
-                {['lecturer', 'admin'].map((type) => (
+                {['student', 'lecturer', 'admin'].map((type) => (
                   <button
                     key={type}
                     type="button"
@@ -210,7 +210,7 @@ const LoginPage = () => {
             )}
 
             {/* Email Input */}
-            <div>
+            { (formData.userType === 'admin' || formData.userType === 'lecturer') && <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Email Address
               </label>
@@ -226,10 +226,9 @@ const LoginPage = () => {
                   required
                 />
               </div>
-            </div>
+            </div>}
 
-            {/* Password Input */}
-            <div>
+            { (formData.userType === 'admin' || formData.userType === 'lecturer') && <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Password
               </label>
@@ -252,10 +251,10 @@ const LoginPage = () => {
                   {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                 </button>
               </div>
-            </div>
+            </div>}
 
             {/* Remember Me & Forgot Password */}
-            <div className="flex items-center justify-between">
+            { (formData.userType === 'admin' || formData.userType === 'lecturer') && <div className="flex items-center justify-between">
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
                   type="checkbox"
@@ -266,15 +265,23 @@ const LoginPage = () => {
               <a href="#" className="text-sm font-semibold text-emerald-600 hover:text-emerald-700">
                 Forgot password?
               </a>
-            </div>
+            </div>}
+
+            { (formData.userType === 'student') && <button
+              type="button"
+              onClick={() => navigate('/recognition')}
+              className="w-full py-4 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white font-semibold rounded-xl hover:shadow-xl hover:shadow-emerald-200 transform hover:-translate-y-0.5 transition-all duration-200"
+            >
+              Scan Your Face
+            </button>}
 
             {/* Submit Button */}
-            <button
+            { (formData.userType === 'admin' || formData.userType === 'lecturer') && <button
               type="submit"
               className="w-full py-4 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white font-semibold rounded-xl hover:shadow-xl hover:shadow-emerald-200 transform hover:-translate-y-0.5 transition-all duration-200"
             >
               Sign In
-            </button>
+            </button>}
           </form>
 
           {/* Footer Links */}
