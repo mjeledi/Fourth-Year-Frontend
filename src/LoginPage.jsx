@@ -9,9 +9,10 @@ const LoginPage = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
-    userType: 'student',
+    userType: 'lecturer',
     school: ''
   });
+
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
 
@@ -160,7 +161,7 @@ const LoginPage = () => {
                 I am a
               </label>
               <div className="grid grid-cols-3 gap-3">
-                {['student', 'lecturer', 'admin'].map((type) => (
+                {['lecturer', 'admin'].map((type) => (
                   <button
                     key={type}
                     type="button"
