@@ -108,7 +108,7 @@ const LoginPage = () => {
                 <School className="w-7 h-7 text-white" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-white">AttendAI</h1>
+                <h1 className="text-2xl font-bold text-white">Lectureye</h1>
                 <p className="text-emerald-100 text-sm">Smart Attendance System</p>
               </div>
             </div>
