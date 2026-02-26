@@ -266,17 +266,6 @@ const LecturerDashboard = () => {
                           <p className="text-xs text-gray-600">Rate</p>
                         </div>
                       </div>
-                      {session.status === 'completed' ? (
-                        <button className="px-4 py-2 bg-white border-2 border-gray-200 rounded-lg font-semibold text-gray-700 hover:border-orange-500 transition-all flex items-center gap-2">
-                          <Download className="w-4 h-4" />
-                          Report
-                        </button>
-                      ) : (
-                        <button className="px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-700 transition-all flex items-center gap-2">
-                          <Camera className="w-4 h-4" />
-                          Mark Attendance
-                        </button>
-                      )}
                     </div>
                   </div>
                 ))}
@@ -351,73 +340,13 @@ const LecturerDashboard = () => {
               </div>
             </div>
 
-            {/* Recent Attendance Log */}
-            <div className="bg-white rounded-2xl p-6 shadow-lg border border-orange-100">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-xl font-bold text-gray-900">Recent Attendance Log</h2>
-                <div className="flex items-center gap-2">
-                  <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                    <Search className="w-5 h-5 text-gray-600" />
-                  </button>
-                  <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
-                    <Filter className="w-5 h-5 text-gray-600" />
-                  </button>
-                </div>
-              </div>
-
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead>
-                    <tr className="border-b-2 border-gray-200">
-                      <th className="text-left py-3 px-2 font-bold text-gray-700 text-sm">Student</th>
-                      <th className="text-left py-3 px-2 font-bold text-gray-700 text-sm">Course</th>
-                      <th className="text-center py-3 px-2 font-bold text-gray-700 text-sm">Time</th>
-                      <th className="text-center py-3 px-2 font-bold text-gray-700 text-sm">Status</th>
-                      <th className="text-center py-3 px-2 font-bold text-gray-700 text-sm">Method</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {recentAttendance.map((record, index) => (
-                      <tr key={index} className="border-b border-gray-100 hover:bg-orange-50 transition-colors">
-                        <td className="py-3 px-2">
-                          <div>
-                            <p className="font-semibold text-gray-900 text-sm">{record.name}</p>
-                            <p className="text-xs text-gray-500">{record.regNo}</p>
-                          </div>
-                        </td>
-                        <td className="py-3 px-2 text-sm text-gray-700">{record.course}</td>
-                        <td className="py-3 px-2 text-center text-sm text-gray-700">{record.time}</td>
-                        <td className="py-3 px-2 text-center">
-                          {record.status === 'present' ? (
-                            <span className="px-2 py-1 bg-green-100 text-green-700 rounded-lg text-xs font-semibold inline-flex items-center gap-1">
-                              <CheckCircle className="w-3 h-3" />
-                              Present
-                            </span>
-                          ) : record.status === 'late' ? (
-                            <span className="px-2 py-1 bg-yellow-100 text-yellow-700 rounded-lg text-xs font-semibold inline-flex items-center gap-1">
-                              <Clock className="w-3 h-3" />
-                              Late
-                            </span>
-                          ) : (
-                            <span className="px-2 py-1 bg-red-100 text-red-700 rounded-lg text-xs font-semibold inline-flex items-center gap-1">
-                              <XCircle className="w-3 h-3" />
-                              Absent
-                            </span>
-                          )}
-                        </td>
-                        <td className="py-3 px-2 text-center text-xs text-gray-600 capitalize">{record.method}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
+           
           </div>
 
           {/* Right Column - At-Risk Students & Quick Actions */}
           <div className="space-y-6">
             {/* Students Needing Attention */}
-            <div className="bg-white rounded-2xl p-6 shadow-lg border border-orange-100">
+            {/* <div className="bg-white rounded-2xl p-6 shadow-lg border border-orange-100">
               <div className="flex items-center gap-2 mb-6">
                 <AlertTriangle className="w-5 h-5 text-red-600" />
                 <h2 className="text-lg font-bold text-gray-900">Needs Attention</h2>
@@ -449,7 +378,7 @@ const LecturerDashboard = () => {
               <button className="w-full mt-4 py-2.5 bg-gradient-to-r from-red-600 to-orange-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all">
                 Contact Students
               </button>
-            </div>
+            </div> */}
 
             {/* Quick Stats */}
             <div className="bg-gradient-to-br from-orange-500 to-amber-600 rounded-2xl p-6 shadow-lg text-white">
@@ -470,24 +399,7 @@ const LecturerDashboard = () => {
               </div>
             </div>
 
-            {/* Quick Actions */}
-            <div className="bg-white rounded-2xl p-6 shadow-lg border border-orange-100">
-              <h2 className="text-lg font-bold text-gray-900 mb-4">Quick Actions</h2>
-              <div className="space-y-3">
-                <button className="w-full py-3 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2">
-                  <Camera className="w-5 h-5" />
-                  Start Face Scan
-                </button>
-                <button className="w-full py-3 bg-white border-2 border-gray-200 rounded-xl font-semibold text-gray-700 hover:border-orange-500 transition-all flex items-center justify-center gap-2">
-                  <Download className="w-5 h-5" />
-                  Download Report
-                </button>
-                <button className="w-full py-3 bg-white border-2 border-gray-200 rounded-xl font-semibold text-gray-700 hover:border-orange-500 transition-all flex items-center justify-center gap-2">
-                  <Users className="w-5 h-5" />
-                  View All Students
-                </button>
-              </div>
-            </div>
+          
           </div>
         </div>
       </div>

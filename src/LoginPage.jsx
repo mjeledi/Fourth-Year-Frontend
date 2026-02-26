@@ -29,7 +29,13 @@ const LoginPage = () => {
     e.preventDefault();
     // Authentication logic would go here
     console.log('Login attempt:', formData);
-    navigate('/dashboard')
+
+    if(formData.userType === 'lecturer'){
+      navigate('/dashboard/lecturer')
+    }else{
+      navigate('/dashboard/admin')
+    }
+    
   };
 
   const handleChange = (e) => {
@@ -179,7 +185,7 @@ const LoginPage = () => {
             </div>
 
             {/* School Selection (for admin/lecturer) */}
-            {(formData.userType === 'admin' || formData.userType === 'lecturer') && (
+            {(formData.userType === 'admin') && (
               <div>
                 <label className="block text-sm font-semibold text-gray-700 mb-2">
                   School/Department
@@ -298,7 +304,7 @@ const LoginPage = () => {
           <div className="lg:hidden mt-8 pt-8 border-t border-gray-200 text-center">
             <div className="flex items-center justify-center gap-2 text-emerald-600">
               <School className="w-5 h-5" />
-              <span className="font-bold">AttendAI</span>
+              <span className="font-bold">Lectureye</span>
             </div>
             <p className="text-xs text-gray-500 mt-2">
               Masinde Muliro University of Science and Technology

@@ -15,10 +15,10 @@ function App() {
     element: <Layout/>,
     children: [
       { path: '', element: <LoginPage/> },
-      { path: '/dashboard', element: <AdminDashboard/>},
+      { path: '/dashboard/admin', element: <AdminDashboard/>},
       { path: '/recognition', element: <FacialRecognitionScanner/>},
       { path: '/attendance', element: <AttendanceReports/>},
-      { path: '/lecturer' , element: <LecturerDashboard/>},
+      { path: '/dashboard/lecturer' , element: <LecturerDashboard/>},
       { path: '/student' , element: <StudentDashboard/>}
     ]
   }])

@@ -388,58 +388,6 @@ const AdminDashboard = () => {
           {/* Sidebar - At-Risk Students & Quick Actions */}
           <div className="space-y-6">
             {/* At-Risk Students */}
-            <div className="glass-effect rounded-2xl p-6 border border-white/50 shadow-lg">
-              <div className="flex items-center gap-2 mb-6">
-                <AlertCircle className="w-5 h-5 text-red-600" />
-                <h2 className="text-lg font-bold text-gray-900">At-Risk Students</h2>
-              </div>
-
-              <div className="space-y-3">
-                {atRiskStudents.map((student, index) => (
-                  <div
-                    key={index}
-                    className="bg-gradient-to-r from-red-50 to-orange-50 rounded-xl p-4 border border-red-200"
-                  >
-                    <div className="flex items-start justify-between mb-2">
-                      <div>
-                        <p className="font-semibold text-gray-900">{student.name}</p>
-                        <p className="text-xs text-gray-600 mono">{student.regNo}</p>
-                      </div>
-                      <span className="px-2 py-1 bg-red-100 text-red-700 rounded text-xs font-bold">
-                        {student.attendance}%
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between text-xs text-gray-600">
-                      <span>{student.school}</span>
-                      <span>{student.courses} courses affected</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <button className="w-full mt-4 py-2.5 bg-gradient-to-r from-red-600 to-orange-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all">
-                View All At-Risk
-              </button>
-            </div>
-
-            {/* Quick Actions */}
-            <div className="glass-effect rounded-2xl p-6 border border-white/50 shadow-lg">
-              <h2 className="text-lg font-bold text-gray-900 mb-4">Quick Actions</h2>
-              <div className="space-y-3">
-                <button className="w-full py-3 bg-white border-2 border-gray-200 rounded-xl font-semibold text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-all flex items-center justify-center gap-2">
-                  <FileText className="w-5 h-5" />
-                  Generate Report
-                </button>
-                <button className="w-full py-3 bg-white border-2 border-gray-200 rounded-xl font-semibold text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-all flex items-center justify-center gap-2">
-                  <Download className="w-5 h-5" />
-                  Export Data
-                </button>
-                <button className="w-full py-3 bg-white border-2 border-gray-200 rounded-xl font-semibold text-gray-700 hover:border-blue-500 hover:text-blue-600 transition-all flex items-center justify-center gap-2">
-                  <AlertCircle className="w-5 h-5" />
-                  Send Alerts
-                </button>
-              </div>
-            </div>
 
             {/* System Status */}
             <div className="glass-effect rounded-2xl p-6 border border-white/50 shadow-lg">
