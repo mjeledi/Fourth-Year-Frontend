@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { Eye, EyeOff, UserCircle, Lock, School } from 'lucide-react';
 import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { useApi } from './context/ApiProvider';
+import { HttpAuthThunk } from './store/auth/authThunks';
+import Spinner from './loaders/Spinner';
 
 const LoginPage = () => {
   
+  const { api } = useApi()
   const navigate = useNavigate();
+  const dispatch = useDispatch()
 
   const [formData, setFormData] = useState({
-    email: '',
+    username: '',
     password: '',
     userType: 'student',
     school: ''
   });
 
+  const [ errorMsg, setErrorMsg ] = useState()
+  const [ isLoading, setIsLoading ] = useState(false)
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState({});
 
@@ -27,16 +35,16 @@ const LoginPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Authentication logic would go here
-    console.log('Login attempt:', formData);
-
-    if(formData.userType === 'lecturer'){
-      navigate('/dashboard/lecturer')
-    }else{
-      navigate('/dashboard/admin')
-    }
-    
-  };
+      dispatch(HttpAuthThunk({ 
+        api, 
+        username: formData.username, 
+        password: formData.password,
+        setIsLoading,
+        setErrorMsg,
+        navigate,
+        role: formData.userType
+      }))
+  }
 
   const handleChange = (e) => {
     setFormData({
@@ -167,7 +175,7 @@ const LoginPage = () => {
                 I am a
               </label>
               <div className="grid grid-cols-3 gap-3">
-                {['student', 'lecturer', 'admin'].map((type) => (
+                {['student', 'lecturer', 'admin', 'superadmin'].map((type) => (
                   <button
                     key={type}
                     type="button"
@@ -216,25 +224,25 @@ const LoginPage = () => {
             )}
 
             {/* Email Input */}
-            { (formData.userType === 'admin' || formData.userType === 'lecturer') && <div>
+            { (formData.userType === 'admin' || formData.userType === 'student' || formData.userType === 'lecturer' || formData.userType === 'superadmin' ) && <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Email Address
+                Username
               </label>
               <div className="relative">
                 <UserCircle className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
+                  type="text"
+                  name="username"
+                  value={formData.username}
                   onChange={handleChange}
-                  placeholder="you@university.ac.ke"
+                  placeholder="johndoe"
                   className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:border-emerald-500 focus:outline-none transition-all duration-200 input-focus text-gray-700"
                   required
                 />
               </div>
             </div>}
 
-            { (formData.userType === 'admin' || formData.userType === 'lecturer') && <div>
+            { (formData.userType === 'admin'  || formData.userType === 'student' ||  formData.userType === 'lecturer' || formData.userType === 'superadmin')&& <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Password
               </label>
@@ -260,7 +268,7 @@ const LoginPage = () => {
             </div>}
 
             {/* Remember Me & Forgot Password */}
-            { (formData.userType === 'admin' || formData.userType === 'lecturer') && <div className="flex items-center justify-between">
+            { (formData.userType === 'admin' || formData.userType === 'lecturer'|| formData.userType === 'supeadmin') && <div className="flex items-center justify-between">
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
                   type="checkbox"
@@ -273,21 +281,18 @@ const LoginPage = () => {
               </a>
             </div>}
 
-            { (formData.userType === 'student') && <button
-              type="button"
-              onClick={() => navigate('/recognition')}
-              className="w-full py-4 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white font-semibold rounded-xl hover:shadow-xl hover:shadow-emerald-200 transform hover:-translate-y-0.5 transition-all duration-200"
+            {/* Submit Button */}
+            { (formData.userType === 'admin' || formData.userType === 'student' || formData.userType === 'lecturer'|| formData.userType === 'superadmin') && <button
+              type="submit"
+              disabled={isLoading}
+              className="disabled:bg-green-600 w-full flex justify-center space-x-3 py-4 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white font-semibold rounded-xl hover:shadow-xl hover:shadow-emerald-200 transform hover:-translate-y-0.5 transition-all duration-200"
             >
-              Scan Your Face
+             { formData.userType !== "student" && <p>{isLoading? "Authenticating"  : "Sign In"}</p>}
+             { formData.userType === "student" && <p>{isLoading? "Authenticating"  : "Log In To Scan Your Face"}</p>}
+             { isLoading && <Spinner size={22}/>}
             </button>}
 
-            {/* Submit Button */}
-            { (formData.userType === 'admin' || formData.userType === 'lecturer') && <button
-              type="submit"
-              className="w-full py-4 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white font-semibold rounded-xl hover:shadow-xl hover:shadow-emerald-200 transform hover:-translate-y-0.5 transition-all duration-200"
-            >
-              Sign In
-            </button>}
+            { errorMsg && <p className='text-center text-base font-bold text-red-500 mt-3'>{errorMsg}</p>}
           </form>
 
           {/* Footer Links */}

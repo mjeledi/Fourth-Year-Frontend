@@ -7,6 +7,7 @@ import FacialRecognitionScanner from './FacialRecognitionScanner'
 import AttendanceReports from './AttendanceReports'
 import LecturerDashboard from './LecturerDashboard'
 import StudentDashboard from './StudentDashboard'
+import SuperAdmin from './SuperAdmin'
 
 function App() {
 
@@ -16,10 +17,11 @@ function App() {
     children: [
       { path: '', element: <LoginPage/> },
       { path: '/dashboard/admin', element: <AdminDashboard/>},
-      { path: '/recognition', element: <FacialRecognitionScanner/>},
+      { path: '/recognition/:id', element: <FacialRecognitionScanner/>},
       { path: '/attendance', element: <AttendanceReports/>},
       { path: '/dashboard/lecturer' , element: <LecturerDashboard/>},
-      { path: '/student' , element: <StudentDashboard/>}
+      { path: '/student' , element: <StudentDashboard/>},
+      { path: '/dashboard/superadmin' , element: <SuperAdmin/>},
     ]
   }])
 

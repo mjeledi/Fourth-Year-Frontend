@@ -1,11 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Camera, Scan, CheckCircle, AlertTriangle, Smile, RefreshCw, Volume2, VolumeX, User, MapPin } from 'lucide-react';
 import { aiMessages, classInfo, livenessChecks } from './constants';
+import { useParams, useSearchParams } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { useApi } from './context/ApiProvider';
+import { HttpFaceScannerThunk } from './store/recognition/recogntionThunks';
 
 const FacialRecognitionScanner = () => {
 
+  const { api } = useApi();
+  const params = useParams();
+  const id = params.id
+  const decodedId = atob(id)
+  const dispatch = useDispatch();
+
   const [scanningState, setScanningState] = useState('idle'); // idle, scanning, liveness, success, failed
   const [livenessCheck, setLivenessCheck] = useState('');
+  const [userImage, setUserImage] = useState("");
   const [countdown, setCountdown] = useState(null);
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [detectionProgress, setDetectionProgress] = useState(0);
@@ -104,11 +115,13 @@ const FacialRecognitionScanner = () => {
     }
   };
 
-  // const startScanning = () => {
-  //   setScanningState('scanning');
-  //   setDetectionProgress(0);
-  //   speakMessage('Scanning your face. Please hold still.');
-  // };
+
+  const resetScanner = () => {
+    setScanningState('idle');
+    setDetectionProgress(0);
+    setLivenessCheck('');
+  };
+
 
   const startScanning = async () => {
     const video = videoRef.current;
@@ -124,18 +137,14 @@ const FacialRecognitionScanner = () => {
     speakMessage("Scanning your face. Please hold still.");
 
     const image = captureImage();
+    setUserImage(image.substring(0, 50))
 
     if (!image) return;
 
-    console.log("Captured image:", image.substring(0, 50));
-  };
-
-
-
-  const resetScanner = () => {
-    setScanningState('idle');
-    setDetectionProgress(0);
-    setLivenessCheck('');
+    console.log(image)
+    dispatch(HttpFaceScannerThunk({ api, 
+      face: image, 
+      userId : decodedId, resetScanner, setUserImage }))
   };
 
   return (
