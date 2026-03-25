@@ -4,7 +4,6 @@ export const HttpFaceScannerThunk = createAsyncThunk(
     "recognition/scanner",
     async({ api, face, userId, resetScanner, setUserImage }, { }) => {
 
-        console.log('SCANNER TRIEF')
         const formData = new FormData();
         formData.set("image", face)
 
