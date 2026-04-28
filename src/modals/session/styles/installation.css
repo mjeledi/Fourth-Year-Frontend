@@ -1,0 +1,14 @@
+#installationmodal{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(6px); /* Apply blur */
+    background: rgba(0, 0, 0, 0.1); /* Slight darkness with transparency */
+    z-index: 100;
+}
+
+.scrollbar-hide::-webkit-scrollbar{
+    display: none;
+}

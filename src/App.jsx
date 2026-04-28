@@ -2,12 +2,14 @@ import { createBrowserRouter } from 'react-router'
 import { RouterProvider } from 'react-router-dom'
 import Layout from './Layout'
 import LoginPage from './LoginPage'
-import AdminDashboard from './AdminDashboard'
-import FacialRecognitionScanner from './FacialRecognitionScanner'
-import AttendanceReports from './AttendanceReports'
+
 import LecturerDashboard from './LecturerDashboard'
 import StudentDashboard from './StudentDashboard'
-import SuperAdmin from './SuperAdmin'
+import AttendanceOTP from './Otp'
+import LecturerQRGenerator from './GenerateQr'
+import AttendSession from './AttendSession'
+import QrCodeScanner from './QrCodeScanner/QrCodeScanner'
+
 
 function App() {
 
@@ -16,12 +18,17 @@ function App() {
     element: <Layout/>,
     children: [
       { path: '', element: <LoginPage/> },
-      { path: '/dashboard/admin', element: <AdminDashboard/>},
-      { path: '/recognition/:id', element: <FacialRecognitionScanner/>},
-      { path: '/attendance', element: <AttendanceReports/>},
+      { path: '/verification/:id', element: <AttendanceOTP/>},
+      { path: '/generate/:id', element: <LecturerQRGenerator/>},
+      { path: '/scan', element: <QrCodeScanner/>},
+
+      // { path: '/dashboard/admin', element: <AdminDashboard/>},
+      // { path: '/recognition/:id', element: <FacialRecognitionScanner/>},
+      // { path: '/attendance', element: <AttendanceReports/>},
       { path: '/dashboard/lecturer' , element: <LecturerDashboard/>},
       { path: '/student' , element: <StudentDashboard/>},
-      { path: '/dashboard/superadmin' , element: <SuperAdmin/>},
+      { path: '/attend/session' , element: <AttendSession/>},
+      // { path: '/dashboard/superadmin' , element: <SuperAdmin/>},
     ]
   }])
 

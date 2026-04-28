@@ -2,29 +2,25 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const HttpAuthThunk = createAsyncThunk(
     "auth/login",
-    async({ api, username, password, setIsLoading, setErrorMsg, navigate, role }, { dispatch }) => {
+    async({ api, email, password, setIsLoading, setErrorMsg, navigate, role }, { dispatch }) => {
         try{
             setIsLoading(true)
-            const response = await api.post('/api/users/login', {
-                username: username,
+            const response = await api.post('/api/login', {
+                email: email,
                 password: password
             })
 
             if(response.status === 200){
                 setIsLoading(false)
-                console.log('SIGNING UP AS : ', role)
+                const role = response.data.role;
 
-                if(role === "student"){
-
-                    const studentId = response.data.data.user.id;
-                    console.log("STUDENT ID", studentId)
-
-                    const encodedId = btoa(studentId)
-                    navigate(`/recognition/${encodedId}`);
+                if((role).toLowerCase() === "student"){
+                    navigate("/attend/session");
+                    return
+                }else if((role).toLowerCase() === "lecturer"){
+                    navigate(`/dashboard/lecturer`);
                     return
                 }
-
-                navigate(`/dashboard/${role}`);
             }
         }catch(err){
             if(err.response){

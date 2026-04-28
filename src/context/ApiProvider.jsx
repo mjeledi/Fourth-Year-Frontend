@@ -6,11 +6,15 @@ const ApiContext = createContext();
 
 export const ApiProvider = ({ children }) => {
 
-  const BASE_URL = import.meta.env.VITE_API_URL;
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   console.log(`BASE URL : ${BASE_URL}`)
 
   const api = axios.create({
     baseURL : BASE_URL,
+    withCredentials: true,
+    headers: {
+      'Content-Type': 'application/json'
+    }
   })
 
   // * Request interceptor to handle FormData automatically

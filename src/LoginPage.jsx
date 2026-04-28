@@ -37,7 +37,7 @@ const LoginPage = () => {
     e.preventDefault();
       dispatch(HttpAuthThunk({ 
         api, 
-        username: formData.username, 
+        email: formData.email, 
         password: formData.password,
         setIsLoading,
         setErrorMsg,
@@ -175,7 +175,7 @@ const LoginPage = () => {
                 I am a
               </label>
               <div className="grid grid-cols-3 gap-3">
-                {['student', 'lecturer', 'admin', 'superadmin'].map((type) => (
+                {['student'].map((type) => (
                   <button
                     key={type}
                     type="button"
@@ -226,16 +226,16 @@ const LoginPage = () => {
             {/* Email Input */}
             { (formData.userType === 'admin' || formData.userType === 'student' || formData.userType === 'lecturer' || formData.userType === 'superadmin' ) && <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Username
+                Email Address
               </label>
               <div className="relative">
                 <UserCircle className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <input
-                  type="text"
-                  name="username"
-                  value={formData.username}
+                  type="email"
+                  name="email"
+                  value={formData.email}
                   onChange={handleChange}
-                  placeholder="johndoe"
+                  placeholder="john.doe@example.com"
                   className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-gray-200 rounded-xl focus:border-emerald-500 focus:outline-none transition-all duration-200 input-focus text-gray-700"
                   required
                 />

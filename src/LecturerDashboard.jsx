@@ -1,7 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BookOpen, Users, Clock, CheckCircle, XCircle, Calendar, TrendingUp, Download, Search, Filter, Bell, ChevronRight, AlertTriangle, Camera } from 'lucide-react';
+import StartSessionModal from './modals/session/StartSessionModal';
+import { useAppDispatch } from './store/hooks';
+import { HttpFetchClasses } from './store/sesssion/thunks';
 
 const LecturerDashboard = () => {
+
+  const dispatch = useAppDispatch();
+  
   const [selectedCourse, setSelectedCourse] = useState('all');
   const [viewMode, setViewMode] = useState('today'); // today, week, semester
 
@@ -89,8 +95,22 @@ const LecturerDashboard = () => {
     { name: 'Carol Adhiambo', regNo: 'SCI/00456/2020', course: 'CSC 301', attendance: 69.8, absent: 8 }
   ];
 
+  useEffect(() => {
+    async function fetchClasses() {
+      try {
+        await dispatch(HttpFetchClasses()).unwrap();
+      } catch (error) {
+        console.error("Error fetching classes:", error);
+      }
+    }
+
+    fetchClasses();
+  }, []);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50">
+
+      <StartSessionModal isOpen={false}/>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
         
@@ -150,9 +170,12 @@ const LecturerDashboard = () => {
                 <Bell className="w-5 h-5 text-gray-600" />
                 <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
               </button>
-              <button className="px-5 py-2.5 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all flex items-center gap-2">
+              <button onClick={(e) => {
+                // TODO TASKS: IMPLEMENT START SESSION LOGIC
+                console.log("STARTING SESSION")
+              }} className="px-5 py-2.5 bg-gradient-to-r from-orange-500 to-amber-500 text-white rounded-xl font-semibold hover:shadow-lg transition-all flex items-center gap-2">
                 <Camera className="w-5 h-5" />
-                Start Scan
+                Start Session
               </button>
             </div>
           </div>

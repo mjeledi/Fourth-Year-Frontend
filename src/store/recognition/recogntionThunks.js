@@ -4,11 +4,12 @@ export const HttpFaceScannerThunk = createAsyncThunk(
     "recognition/scanner",
     async({ api, face, userId, resetScanner, setUserImage }, { }) => {
 
+        console.log(face)
+
         const formData = new FormData();
         formData.set("image", face)
 
         try{
-            setIsLoading(true)
             const response = await api.post(`/api/users/profile/face/${userId}`, formData)
 
             if(response.status === 200){
