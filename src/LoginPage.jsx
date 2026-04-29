@@ -123,7 +123,7 @@ const LoginPage = () => {
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-white">Lectureye</h1>
-                <p className="text-emerald-100 text-sm">Smart Attendance System</p>
+                <p className="text-emerald-100 text-sm">GeoFencing Attendance System</p>
               </div>
             </div>
             
@@ -131,7 +131,7 @@ const LoginPage = () => {
               Secure, Intelligent,<br />Offline-First
             </h2>
             <p className="text-emerald-50 text-lg leading-relaxed">
-              Revolutionizing university attendance with AI-powered facial recognition,
+              Revolutionizing university attendance with Geo Fencing Algorithm,
               built for African educational institutions.
             </p>
           </div>
@@ -140,7 +140,7 @@ const LoginPage = () => {
             <div className="flex items-start gap-3">
               <div className="w-2 h-2 bg-white rounded-full mt-2"></div>
               <div>
-                <p className="text-white font-semibold">75% Compliance Tracking</p>
+                <p className="text-white font-semibold">80% Compliance Tracking</p>
                 <p className="text-emerald-100 text-sm">Automated monitoring and alerts</p>
               </div>
             </div>
@@ -169,28 +169,6 @@ const LoginPage = () => {
           </div>
 
           <form onSubmit={(e) => handleSubmit(e)} className="space-y-6">
-            {/* User Type Selection */}
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-3">
-                I am a
-              </label>
-              <div className="grid grid-cols-3 gap-3">
-                {['student'].map((type) => (
-                  <button
-                    key={type}
-                    type="button"
-                    onClick={() => setFormData({ ...formData, userType: type })}
-                    className={`py-3 px-4 rounded-xl font-medium text-sm capitalize transition-all duration-200 ${
-                      formData.userType === type
-                        ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white shadow-lg shadow-emerald-200 transform scale-105'
-                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                    }`}
-                  >
-                    {type}
-                  </button>
-                ))}
-              </div>
-            </div>
 
             {/* School Selection (for admin/lecturer) */}
             {(formData.userType === 'admin') && (
@@ -288,7 +266,7 @@ const LoginPage = () => {
               className="disabled:bg-green-600 w-full flex justify-center space-x-3 py-4 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white font-semibold rounded-xl hover:shadow-xl hover:shadow-emerald-200 transform hover:-translate-y-0.5 transition-all duration-200"
             >
              { formData.userType !== "student" && <p>{isLoading? "Authenticating"  : "Sign In"}</p>}
-             { formData.userType === "student" && <p>{isLoading? "Authenticating"  : "Log In To Scan Your Face"}</p>}
+             { formData.userType === "student" && <p>{isLoading? "Authenticating"  : "Log In To Attend Session"}</p>}
              { isLoading && <Spinner size={22}/>}
             </button>}
 

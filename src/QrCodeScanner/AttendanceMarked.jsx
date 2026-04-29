@@ -32,7 +32,7 @@ export default function AttendanceMarked() {
             <div className="flex justify-center pt-4">
                 <button onClick={() => { 
                     navigate('/', { replace: true });
-                    sessionActions.AttendanceMarked(false)}
+                    dispatch(sessionActions.AttendanceMarked(false))}
                 } className="bg-green-600 text-white px-6 py-2 rounded-lg font-medium hover:opacity-90 transition">
                     Proceed
                 </button>

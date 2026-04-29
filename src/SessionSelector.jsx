@@ -25,7 +25,7 @@ export default function SessionSelector({ sessions, onProceed }) {
         return (
           <div
             key={session.session_id}
-            className={`flex items-center mb-6 justify-between p-4 rounded-lg border transition-all duration-200
+            className={`flex mb-6 justify-between p-4 rounded-lg border transition-all duration-200
               ${
                 isSelected
                   ? "border-green-600 bg-green-50 shadow-sm"
@@ -39,8 +39,16 @@ export default function SessionSelector({ sessions, onProceed }) {
               onClick={() => handleSelect(session.session_id)}
             >
               <div className="font-semibold flex space-x-2 text-gray-800">
+                <p className="text-black/60">COURSE NAME: </p>
+                <p>{session?.course_name?? ""}</p>
+              </div>
+              <div className="font-semibold flex space-x-2 text-gray-800">
                 <p className="text-black/60">COURSE CODE: </p>
-                <p>{session.course_code}</p>
+                <p>{session?.course_code?? ""}</p>
+              </div>
+              <div className="font-semibold flex space-x-2 text-gray-800">
+                <p className="text-black/60">DURATION: </p>
+                <p>{session?.planned_duration?? 0} minutes</p>
               </div>
               <div className="font-semibold flex space-x-2 text-gray-800">
                 <p className="text-black/60">VENUE: </p>
@@ -53,7 +61,8 @@ export default function SessionSelector({ sessions, onProceed }) {
             </div>
 
             {/* Right side actions */}
-            <div className="flex items-center gap-3">
+            <div>
+              <div className="flex items-center gap-3">
               {/* Radio */}
               <div
                 onClick={() => handleSelect(session.session_id)}
@@ -84,6 +93,7 @@ export default function SessionSelector({ sessions, onProceed }) {
               >
                 Proceed
               </button>
+            </div>
             </div>
           </div>
         );

@@ -7,6 +7,7 @@ import { useAppDispatch } from '../store/hooks';
 import Spinner from '../loaders/Spinner';
 import { useSearchParams } from 'react-router';
 import AttendanceMarked from './AttendanceMarked';
+import { sessionActions } from '../store/sesssion/slice';
 
 export default function QrCodeScanner(){
 
@@ -171,7 +172,7 @@ export default function QrCodeScanner(){
 
           <div className="mt-8 flex justify-center">
             <button type="submit" disabled={isLoading} className=" text-white flex justify-between bg-green-600 text-[16px] font-semibold px-4 py-3 rounded-xl w-full border hover:bg-green-700 disabled:cursor-not-allowed disabled:opacity-20">
-              <p className="mt-[2px]">Confirm Set-Up</p>
+              <p className="mt-[2px]">Confirm Attendance</p>
               <IoIosArrowRoundForward className="size-6"/>
             </button>
           </div>

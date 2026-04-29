@@ -7,6 +7,12 @@ export interface RootState {
         sessions: [],
         qr: string;
         isVerified: boolean;
+        
         message: string;
+        isModalOpen: boolean;
+        courses: [];
+
+        user: {};
+        isClassModalOpen: boolean
     }
 }
