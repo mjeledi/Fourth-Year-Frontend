@@ -128,7 +128,7 @@ const LoginPage = () => {
             </div>
             
             <h2 className="text-4xl font-bold text-white mb-4 leading-tight">
-              Secure, Intelligent,<br />Offline-First
+              Secure, Intelligent<br />
             </h2>
             <p className="text-emerald-50 text-lg leading-relaxed">
               Revolutionizing university attendance with Geo Fencing Algorithm,
@@ -148,16 +148,10 @@ const LoginPage = () => {
               <div className="w-2 h-2 bg-white rounded-full mt-2"></div>
               <div>
                 <p className="text-white font-semibold">Anti-Spoofing Technology</p>
-                <p className="text-emerald-100 text-sm">Live face detection prevents fraud</p>
+                <p className="text-emerald-100 text-sm">Device detection prevents fraud</p>
               </div>
             </div>
-            <div className="flex items-start gap-3">
-              <div className="w-2 h-2 bg-white rounded-full mt-2"></div>
-              <div>
-                <p className="text-white font-semibold">Works Offline</p>
-                <p className="text-emerald-100 text-sm">Reliable in low-connectivity areas</p>
-              </div>
-            </div>
+            
           </div>
         </div>
 
