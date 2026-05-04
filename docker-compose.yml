@@ -14,8 +14,11 @@ services:
       - VITE_BASE_URL=${VITE_BASE_URL}
     networks:
       - lectureeye-net
+      - vectorihub-net
 networks:
   lectureeye-net:
+    external: true
+  vectorihub-net:
     external: true
 volumes:
   avatar:
