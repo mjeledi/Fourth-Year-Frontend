@@ -1,0 +1,22 @@
+services:
+  lectureeye:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5174:80"
+    restart: unless-stopped
+    container_name: lectureeye-client
+    env_file:
+      - .env
+    environment:
+      - VITE_API_URL=${VITE_API_URL}
+      - VITE_BASE_URL=${VITE_BASE_URL}
+    networks:
+      - lectureeye-net
+networks:
+  lectureeye-net:
+    external: true
+volumes:
+  avatar:
+    external: true
