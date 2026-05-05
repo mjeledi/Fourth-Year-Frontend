@@ -13,6 +13,7 @@ export interface RootState {
         courses: [];
 
         user: {};
-        isClassModalOpen: boolean
+        isClassModalOpen: boolean;
+        attendance: []
     }
 }

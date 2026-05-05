@@ -78,3 +78,13 @@ export interface CreateClassRequest {
 export interface CreateClassResponse {
     class: {};
 }
+
+// * ATTENDANCE TYPES
+export interface SessionAttendanceResponse {
+    attendance: []
+}
+
+export interface SessionAttendancePayload {
+    session_id: string,
+    setIsLoading: Function
+}

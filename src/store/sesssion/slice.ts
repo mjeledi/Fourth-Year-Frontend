@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { HttpCreateClassHandler, HttpCreateSession, HttpFetchClasses, HttpFetchQrCode, HttpFetchSessions, HttpLecturerCourses, HttpVerifyAttendance } from "./thunks";
 import { HttpFetchUser } from "./user-thunks";
+import { HttpFetchSessionAttendance } from "./attendanceThunks";
 
 export const SessionSlice = createSlice({
     name: "session",
@@ -17,7 +18,8 @@ export const SessionSlice = createSlice({
         courses: [] as any,
         user: {} as any,
 
-        isClassModalOpen: false
+        isClassModalOpen: false,
+        attendance: [] as any
     },
     reducers: {
         AttendanceMarked: (state,action) => {
@@ -32,6 +34,11 @@ export const SessionSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
+        builder.addCase(HttpFetchSessionAttendance.fulfilled, (state, action) => {
+            const attendance = action.payload
+            state.attendance = attendance
+        })
+
         builder.addCase(HttpCreateClassHandler.fulfilled, (state, action) => {
             const data = action.payload
             state.isClassModalOpen = false

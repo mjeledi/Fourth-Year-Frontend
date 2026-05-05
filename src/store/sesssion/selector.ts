@@ -11,3 +11,5 @@ export const selectIsModalOpen = (state : RootState) => state.classes.isModalOpe
 export const selectCourses = (state : RootState) => state.classes.courses;
 export const selectUser = (state : RootState) => state.classes.user;
 export const selectClassModal = (state : RootState) => state.classes.isClassModalOpen;
+
+export const selectAttendance = (state: RootState) => state.classes.attendance;

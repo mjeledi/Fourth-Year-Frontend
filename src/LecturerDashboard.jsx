@@ -8,9 +8,11 @@ import { selectClassModal, selectCourses, selectIsModalOpen, selectSessions, sel
 import { sessionActions } from './store/sesssion/slice';
 import { HttpFetchUser } from './store/sesssion/user-thunks';
 import ClassModal from './modals/class/ClassModal';
+import { useNavigate } from 'react-router';
 
 const LecturerDashboard = () => {
 
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const isModalOpen = useSelector(selectIsModalOpen)
   const isClassModalOpen = useSelector(selectClassModal)
@@ -196,18 +198,26 @@ const LecturerDashboard = () => {
                   >
                     <div className="flex items-start justify-between mb-3">
                       <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-2">
-                          <h3 className="font-bold text-gray-900">{session?.course_name?? ""}</h3>
-                          <span className="px-2 py-0.5 bg-white rounded text-xs font-semibold text-gray-600">
-                            {session?.course_code?? ""}
-                          </span>
-                          {session?.is_active && (
-                            <span className="flex items-center gap-1 px-2 py-0.5 bg-blue-600 text-white rounded text-xs font-semibold">
-                              <span className="w-1.5 h-1.5 bg-white rounded-full pulse-dot"></span>
-                              Live
+
+                        <div className='flex justify-between'>
+                          <div className="flex items-center gap-3 mb-2">
+                            <h3 className="font-bold text-gray-900">{session?.course_name?? ""}</h3>
+                            <span className="px-2 py-0.5 bg-white rounded text-xs font-semibold text-gray-600">
+                              {session?.course_code?? ""}
                             </span>
-                          )}
+                            {session?.is_active && (
+                              <span className="flex items-center gap-1 px-2 py-0.5 bg-blue-600 text-white rounded text-xs font-semibold">
+                                <span className="w-1.5 h-1.5 bg-white rounded-full pulse-dot"></span>
+                                Live
+                              </span>
+                            )}
+                          </div>
+                          <div>
+                            <button onClick={() => navigate(`/session/attendance/${btoa(session.session_id)}`)} className='bg-green-600 text-sm font-semibold px-6 py-3 rounded-xl text-white'>View attendance</button>
+                          </div>
                         </div>
+
+
                         <div className="flex items-center gap-4 text-sm text-gray-600">
                           <div className="flex items-center gap-1">
                             <Clock className="w-4 h-4" />
